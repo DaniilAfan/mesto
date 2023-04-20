@@ -1,0 +1,17 @@
+.profile__popup {
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    background-color: #000000;
+    border: 1px solid #FFFFFF;
+    background-image: url('../../../images/profile__popup.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+}
+
+.profile__popup:hover {
+    opacity: 0.6;
+}

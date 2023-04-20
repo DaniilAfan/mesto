@@ -1,16 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pages/index.css">
     <title>место</title>
 </head>
 
 <body class="page">
-    <header></header>
-    <main class="content"></main>
+    <header class="header">
+        <img src="./images/header__logo.svg" alt="логотип шапки сайта" class="header__logo">
+    </header>
+    <main class="content">
+        <section class="profile">
+            <div class="profile__items">
+                <img src="./images/profile__photo.jpg" alt="фото профиля" class="profile__photo">
+                <div class="profile__info">
+                    <h1 class="profile__title">FunnyAnimals</h1>
+                    <button class="profile__popup"></button>
+                    <h2 class="profile__subtitle">черты личности человека</h2>
+                </div>
+            </div>
+            <button class="profile__button-add"></button>
+        </section>
+        <section class="cards">
+            <div class="card">
+                <img src="./images/card__logo1.png" alt="лого1" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Позитив</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/card__logo2.png" alt="лого2" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Негатив</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/card__logo3.png" alt="лого3" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Лень</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/card__logo4.png" alt="лого4" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Апатия</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/card__logo5.png" alt="лого5" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Усталость</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/card__logo6.png" alt="лого6" class="card__logo">
+                <div class="card__interface">
+                    <h2 class="card__title">Мудрость (АуфАуФАуф)</h2>
+                    <div class="card__item"></div>
+                </div>
+            </div>
+        </section>
+        <section class="popup">
+            <div class="popup__container">
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form novalidate class="popup__form">
+                    <input type="text" class="popup__paragraph-name" value="FunnyAnimals">
+                    <input type="text" class="popup__paragraph-inf" value="черты личности человека">
+                    <button class="popup__save-button">Сохранить</button>
+                </form>
+                <button class="popup__close-button"></button>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <h2 class="footer__copyright">©️ 2023 Mesto Russia</h2>
+    </footer>
+    <script src="./scripts/index.js" defer></script>
 </body>
 
 </html>

@@ -1,0 +1,16 @@
+.card__item {
+    cursor: pointer;
+    width: 15%;
+    height: 19px;
+    background-image: url("../../../images/card__item.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    background-size: contain;
+    opacity: 1;
+    transition: opacity 0.2s linear;
+}
+
+.card__item:hover {
+    opacity: 0.5;
+}
