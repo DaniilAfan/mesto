@@ -10,10 +10,11 @@
 
 @media screen and (max-width:900px) {
     .cards {
-        max-width: 700px;
+        max-width: 600px;
         grid-template-columns: minmax(auto, 282px) minmax(auto, 282px);
         grid-template-rows: min-content min-content;
-        margin-left: 27px;
+        padding-left: 27px;
+
     }
 
 }
@@ -24,7 +25,15 @@
         max-width: 282px;
         grid-template-columns: minmax(auto, 282px);
         grid-template-rows: min-content;
+        padding-left: 0;
         margin: 36px auto 0;
+    }
+
+}
+
+@media screen and (max-width:360px) {
+    .cards {
+        margin-left: 19px;
     }
 
 }

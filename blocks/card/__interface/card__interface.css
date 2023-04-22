@@ -1,8 +1,7 @@
 .card__interface {
     max-width: 246px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     margin: 25px 15px auto 21px;
+    display: grid;
+    grid-template-columns: auto 22px;
+    align-items: center;
 }

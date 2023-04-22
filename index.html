@@ -19,71 +19,71 @@
                 <img src="./images/profile__photo.jpg" alt="фото профиля" class="profile__photo">
                 <div class="profile__info">
                     <h1 class="profile__title">FunnyAnimals</h1>
-                    <button class="profile__popup"></button>
+                    <button type="button" class="profile__popup"></button>
                     <h2 class="profile__subtitle">черты личности человека</h2>
                 </div>
             </div>
-            <button class="profile__button-add"></button>
+            <button type="button" class="profile__button-add"></button>
         </section>
         <section class="cards">
             <div class="card">
                 <img src="./images/card__logo1.png" alt="лого1" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Позитив</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card__logo2.png" alt="лого2" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Негатив</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card__logo3.png" alt="лого3" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Лень</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card__logo4.png" alt="лого4" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Апатия</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card__logo5.png" alt="лого5" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Усталость</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
             </div>
             <div class="card">
                 <img src="./images/card__logo6.png" alt="лого6" class="card__logo">
                 <div class="card__interface">
                     <h2 class="card__title">Мудрость (АуфАуФАуф)</h2>
-                    <div class="card__item"></div>
+                    <button type="button" class="card__item"></button>
                 </div>
-            </div>
-        </section>
-        <section class="popup">
-            <div class="popup__container">
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <form novalidate class="popup__form">
-                    <input type="text" class="popup__paragraph-name" value="FunnyAnimals">
-                    <input type="text" class="popup__paragraph-inf" value="черты личности человека">
-                    <button class="popup__save-button">Сохранить</button>
-                </form>
-                <button class="popup__close-button"></button>
             </div>
         </section>
     </main>
     <footer class="footer">
-        <h2 class="footer__copyright">©️ 2023 Mesto Russia</h2>
+        <p class="footer__copyright">©️ 2023 Mesto Russia</p>
     </footer>
+    <section class="popup ">
+        <div class="popup__container">
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form name="popupText" class="popup__form popup__form_profile" novalidate>
+                <input name="input-name" type="text" class="popup__input popup__input_type_name" value="">
+                <input type="text" class="popup__input popup__input_type_job" value="">
+                <button name="input-job" type="submit" class="popup__save-button">Сохранить</button>
+            </form>
+            <button type="button" class="popup__close-button"></button>
+        </div>
+    </section>
     <script src="./scripts/index.js" defer></script>
 </body>
 

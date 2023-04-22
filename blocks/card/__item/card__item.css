@@ -1,6 +1,9 @@
 .card__item {
+    padding: 0;
+    background-color: #FFFFFF;
+    border: 0;
     cursor: pointer;
-    width: 15%;
+    width: 22;
     height: 19px;
     background-image: url("../../../images/card__item.svg");
     background-position: center;
