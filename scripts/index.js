@@ -9,6 +9,8 @@ const profilejob = document.querySelector('.profile__subtitle');
 const submitButton = document.querySelector('.popup__save-button');
 
 const togglePopupVisibility = function () {
+    nameInput.value = profilename.textContent;
+    jobInput.value = profilejob.textContent;
     popupElement.classList.add('popup_opened');
 }
 const togglePopupInVisibility = function () {
@@ -17,8 +19,6 @@ const togglePopupInVisibility = function () {
 
 profilepopupElement.addEventListener('click', () => {
     togglePopupVisibility();
-    nameInput.value = profilename.textContent;
-    jobInput.value = profilejob.textContent;
 });
 popupcloseElement.addEventListener('click', togglePopupInVisibility);
 

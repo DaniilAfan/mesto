@@ -12,6 +12,13 @@
     transition: opacity 0.2s linear;
 }
 
+@media screen and (max-width:425px) {
+    .profile__popup {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 .profile__popup:hover {
     opacity: 0.6;
 }
