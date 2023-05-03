@@ -26,65 +26,49 @@
             <button type="button" class="profile__button-add"></button>
         </section>
         <section class="cards">
-            <div class="card">
-                <img src="./images/card__logo1.png" alt="лого1" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Позитив</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/card__logo2.png" alt="лого2" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Негатив</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/card__logo3.png" alt="лого3" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Лень</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/card__logo4.png" alt="лого4" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Апатия</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/card__logo5.png" alt="лого5" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Усталость</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/card__logo6.png" alt="лого6" class="card__logo">
-                <div class="card__interface">
-                    <h2 class="card__title">Мудрость (АуфАуФАуф)</h2>
-                    <button type="button" class="card__item"></button>
-                </div>
-            </div>
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">©️ 2023 Mesto Russia</p>
     </footer>
-    <section class="popup ">
+    <section class="popup popup_profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form name="popupText" class="popup__form popup__form_profile" novalidate>
+            <form name="popupText popupText_profile" class="popup__form popup__form_profile" novalidate>
                 <input name="input-name" type="text" class="popup__input popup__input_type_name">
                 <input type="text" class="popup__input popup__input_type_job">
-                <button name="input-job" type="submit" class="popup__save-button">Сохранить</button>
+                <button name="input-job" type="submit"
+                    class="popup__save-button popup__save-button_profile">Сохранить</button>
             </form>
-            <button type="button" class="popup__close-button"></button>
+            <button type="button" class="popup__close-button popup__close-button_profile"></button>
         </div>
     </section>
-    <script src="./scripts/index.js" defer></script>
+    <section class="popup popup_cards">
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <form name="popupText" class="popup__form popup__form_cards" novalidate>
+                <input name="input-name" type="text" required placeholder="Название"
+                    class="popup__input popup__input_type_title">
+                <input type="text" required placeholder="Ссылка на картинку"
+                    class="popup__input popup__input_type_link">
+                <button name="input-job" type="submit"
+                    class="popup__save-button popup__save-button_cards">Сохранить</button>
+            </form>
+            <button type="button" class="popup__close-button popup__close-button_cards"></button>
+        </div>
+    </section>
+    <template class="template">
+        <div class="card">
+            <img class="card__logo">
+            <button class="card__button-trash"></button>
+            <div class="card__interface">
+                <h2 class="card__title"></h2>
+                <button type="button" class="card__item"></button>
+            </div>
+        </div>
+    </template>
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>
