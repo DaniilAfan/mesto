@@ -1,6 +1,4 @@
 .card__item_active {
-    width: 22px;
-    height: 19px;
     background-image: url("../../../../images/card__item_active.svg");
     background-position: center;
     background-repeat: no-repeat;

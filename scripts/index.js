@@ -37,6 +37,11 @@ const popupLink = document.querySelector('.popup__input_type_link');
 const popupName = document.querySelector('.popup__input_type_title');
 const popupElement2 = document.querySelector('.popup_cards')
 const popupclosebutton = document.querySelector('.popup__close-button_cards');
+//объявляем третий попап
+const popupFullScreen = document.querySelector('.popup-fullscreen');
+const popupFullScreenImg = document.querySelector('.popup-fullscreen__img');
+const popupFullScreenTitle = document.querySelector('.popup-fullscreen__title');
+const popupFullScreenClose = document.querySelector('.popup-fullscreen__close');
 //открытие попапа карточек
 function popupOpen() {
     popupElement2.classList.add('popup_opened');
@@ -55,6 +60,7 @@ function createCard(item) {
     const cardLogo = templateElement.querySelector('.card__logo');
     const cardTitle = templateElement.querySelector('.card__title');
     const deleteButton = templateElement.querySelector('.card__button-trash');
+    const likeButton = templateElement.querySelector('.card__item');
     cardLogo.src = item.link;
     cardTitle.textContent = item.name;
     cardLogo.alt = item.name;
@@ -65,6 +71,23 @@ function createCard(item) {
         removeElement.remove();
     }
     deleteButton.addEventListener('click', deleteCard);
+    // функция лайка
+    function makeLike() {
+        likeButton.classList.add('card__item_active');
+    }
+    likeButton.addEventListener('click', makeLike);
+    //открыть попап с картинкой
+    function openFullScreen() {
+        popupFullScreen.classList.add('popup-fullscreen_opened');
+        popupFullScreenImg.src = cardLogo.src;
+        popupFullScreenTitle.textContent = cardTitle.textContent;
+    }
+    cardLogo.addEventListener('click', openFullScreen);
+    //закрыть
+    function closeFullScreen() {
+        popupFullScreen.classList.remove('popup-fullscreen_opened');
+    }
+    popupFullScreenClose.addEventListener('click', closeFullScreen);
     return templateElement;
 }
 initialCards.forEach(function (item) {
@@ -81,6 +104,7 @@ function addNewCard(event) {
     const cardLogo = templateElement.querySelector('.card__logo');
     const cardTitle = templateElement.querySelector('.card__title');
     const deleteButton = templateElement.querySelector('.card__button-trash');
+    const likeButton = templateElement.querySelector('.card__item');
     cardLogo.src = cardInputimg.value;
     cardTitle.textContent = cardInputtext.value;
     cardLogo.alt = cardInputtext.value;
@@ -89,6 +113,20 @@ function addNewCard(event) {
         removeElement.remove();
     }
     deleteButton.addEventListener('click', deleteCard);
+    function makeLike() {
+        likeButton.classList.add('card__item_active');
+    }
+    likeButton.addEventListener('click', makeLike);
+    function openFullScreen() {
+        popupFullScreen.classList.add('popup-fullscreen_opened');
+        popupFullScreenImg.src = cardLogo.src;
+        popupFullScreenTitle.textContent = cardTitle.textContent;
+    }
+    cardLogo.addEventListener('click', openFullScreen);
+    function closeFullScreen() {
+        popupFullScreen.classList.remove('popup-fullscreen_opened');
+    }
+    popupFullScreenClose.addEventListener('click', closeFullScreen);
     cards.prepend(templateElement);
     popupFormCards.reset();
     popupClose();
