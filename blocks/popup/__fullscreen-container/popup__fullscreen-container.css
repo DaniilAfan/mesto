@@ -1,18 +1,18 @@
-.popup-fullscreen__container {
+.popup__fullscreen-container {
     width: 816px;
     height: 562px;
     position: relative;
 }
 
 @media screen and (max-width:940px) {
-    .popup-fullscreen__container {
+    .popup__fullscreen-container {
         width: 432px;
     }
 
 }
 
 @media screen and (max-width:500px) {
-    .popup-fullscreen__container {
+    .popup__fullscreen-container {
         width: 240px;
         height: 299px;
     }
