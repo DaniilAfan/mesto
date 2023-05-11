@@ -72,7 +72,7 @@ function createCard(item) {
     deleteButton.addEventListener('click', deleteCard);
     // функция лайка
     function makeLike() {
-        likeButton.classList.add('card__item_active');
+        likeButton.classList.toggle('card__item_active');
     }
     likeButton.addEventListener('click', makeLike);
     //открыть попап с картинкой
