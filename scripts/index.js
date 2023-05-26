@@ -10,10 +10,12 @@ const submitButton = document.querySelector('.popup__save-button_profile');
 //открытие попапа профиля
 const togglePopupVisibility = function (popup) {
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', closeByEsc);
 }
 //закрытие попапа профиля
 const togglePopupInVisibility = function (popup) {
     popup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', closeByEsc);
 }
 
 profilepopupElement.addEventListener('click', () => {
@@ -108,3 +110,18 @@ function addNewCard(event) {
     togglePopupInVisibility(popupCards);
 }
 popupFormCards.addEventListener('submit', addNewCard);
+// закрытие кликом на оверлей
+function closeByOverlay(evt) {
+    if (evt.target.classList.contains('popup')) {
+        togglePopupInVisibility(evt.target);
+    }
+}
+popupElement.addEventListener('mousedown', closeByOverlay);
+popupCards.addEventListener('mousedown', closeByOverlay);
+popupFullScreen.addEventListener('mousedown', closeByOverlay);
+//закрытие на escape
+function closeByEsc(evt) {
+    if (evt.key === 'Escape') {
+        togglePopupInVisibility(document.querySelector('.popup_opened'));
+    }
+};

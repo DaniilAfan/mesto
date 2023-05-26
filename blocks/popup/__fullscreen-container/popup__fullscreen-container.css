@@ -1,4 +1,5 @@
 .popup__fullscreen-container {
+    cursor: default;
     width: 816px;
     height: 562px;
     position: relative;
