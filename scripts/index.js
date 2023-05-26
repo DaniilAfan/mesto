@@ -17,6 +17,10 @@ const togglePopupInVisibility = function (popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', closeByEsc);
 }
+function disabledSubmitButton(popup) {
+    const button = popup.querySelector('.popup__save-button');
+    button.classList.add('popup__save-button_disabled');
+}
 
 profilepopupElement.addEventListener('click', () => {
     nameInput.value = profilename.textContent;
@@ -32,6 +36,7 @@ function handleFormSubmitProfile(event) {
     event.preventDefault();
     profilename.textContent = nameInput.value;
     profilejob.textContent = jobInput.value;
+    disabledSubmitButton(popupElement);
     togglePopupInVisibility(popupElement);
 }
 popupForm.addEventListener('submit', handleFormSubmitProfile);
@@ -106,6 +111,7 @@ function addNewCard(event) {
         link: cardInputimg.value
     };
     cards.prepend(createCard(cardData));
+    disabledSubmitButton(popupCards);
     popupFormCards.reset();
     togglePopupInVisibility(popupCards);
 }
