@@ -20,6 +20,7 @@ const togglePopupInVisibility = function (popup) {
 function disabledSubmitButton(popup) {
     const button = popup.querySelector('.popup__save-button');
     button.classList.add('popup__save-button_disabled');
+    button.setAttribute('disabled', true);
 }
 
 profilepopupElement.addEventListener('click', () => {
