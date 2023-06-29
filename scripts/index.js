@@ -47,14 +47,12 @@ function handleFormSubmitProfile(event) {
     event.preventDefault();
     profilename.textContent = nameInput.value;
     profilejob.textContent = jobInput.value;
-    // disabledSubmitButton(popupElement);
+    disabledSubmitButton(popupElement);
     togglePopupInVisibility(popupElement);
 }
 popupForm.addEventListener('submit', handleFormSubmitProfile);
 //объявляем переменные для второго попапа
 const profileAddbutton = document.querySelector('.profile__button-add');
-const popupLink = document.querySelector('.popup__input_type_link');
-const popupName = document.querySelector('.popup__input_type_title');
 const popupCards = document.querySelector('.popup_cards')
 const popupclosebutton = document.querySelector('.popup__close-button_cards');
 //объявляем третий попап
@@ -115,8 +113,8 @@ initialCards.forEach((item) => {
     const cardElement = newCard.generateCard();
     cards.append(cardElement);
 });
-const profileValidation = new FormValidator(popupElement);
+const profileValidation = new FormValidator(configFormSelector, popupElement);
 profileValidation.enableValidation();
-const cardValidation = new FormValidator(popupCards);
+const cardValidation = new FormValidator(configFormSelector, popupCards);
 cardValidation.enableValidation();
 
