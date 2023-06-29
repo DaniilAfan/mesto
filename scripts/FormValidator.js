@@ -53,11 +53,29 @@
 // }
 // enableValidation(configFormSelector);
 class FormValidator {
-    constructor(popup) {
+    constructor(config, popup) {
+        this.config = config;
         this._popup = popup;
         this._form = Array.from(this._popup.querySelectorAll('.popup__form'));
         this._inputList = Array.from(this._popup.querySelectorAll('.popup__input'));
         this._buttonElement = this._popup.querySelector('.popup__save-button');
+    }
+    _showInputError(inputElement, errorElement) {
+        inputElement.classList.add('popup__input_type_error');
+        errorElement.textContent = inputElement.validationMessage;
+    }
+    _hideInputError(inputElement, errorElement) {
+        inputElement.classList.remove('popup__input_type_error');
+        errorElement.textContent = '';
+    }
+    _toggleButtonstate(isActive) {
+        if (!isActive) {
+            this._buttonElement.disabled = 'disabled';
+            this._buttonElement.classList.add('popup__save-button_disabled');
+        } else {
+            this._buttonElement.disabled = false;
+            this._buttonElement.classList.remove('popup__save-button_disabled');
+        }
     }
     _checkInputValidity(inputElement) {
         const isInputValid = inputElement.validity.valid;
@@ -66,20 +84,20 @@ class FormValidator {
         if (!errorElement) return;
 
         if (!isInputValid) {
-            inputElement.classList.add('popup__input_type_error');
-            errorElement.textContent = inputElement.validationMessage;
+            this._showInputError(inputElement, errorElement);
         }
         else {
-            inputElement.classList.remove('popup__input_type_error');
-            errorElement.textContent = '';
+            this._hideInputError(inputElement, errorElement);
         }
     }
     _setEventListener(formElement) {
+        this._toggleButtonstate(formElement.checkValidity());
         formElement.addEventListener('submit', (e) => {
             e.preventDefault();
         })
         this._inputList.forEach((inputItem) => {
             inputItem.addEventListener('input', () => {
+                this._toggleButtonstate(formElement.checkValidity());
                 this._checkInputValidity(inputItem);
             })
         })
