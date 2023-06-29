@@ -1,3 +1,5 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 const popupElement = document.querySelector('.popup_profile');
 const profilepopupElement = document.querySelector('.profile__popup');
 const popupcloseElement = document.querySelector('.popup__close-button_profile');
@@ -6,9 +8,17 @@ const jobInput = document.querySelector('.popup__input_type_job');
 const popupForm = document.querySelector('.popup__form_profile');
 const profilename = document.querySelector('.profile__title');
 const profilejob = document.querySelector('.profile__subtitle');
-const submitButton = document.querySelector('.popup__save-button_profile');
+
+const configFormSelector = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save-button',
+    inactiveButtonClass: 'popup__save-button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error'
+}
 //открытие попапа профиля
-const togglePopupVisibility = function (popup) {
+export const togglePopupVisibility = function (popup) {
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', closeByEsc);
 }
@@ -37,7 +47,7 @@ function handleFormSubmitProfile(event) {
     event.preventDefault();
     profilename.textContent = nameInput.value;
     profilejob.textContent = jobInput.value;
-    disabledSubmitButton(popupElement);
+    // disabledSubmitButton(popupElement);
     togglePopupInVisibility(popupElement);
 }
 popupForm.addEventListener('submit', handleFormSubmitProfile);
@@ -49,8 +59,6 @@ const popupCards = document.querySelector('.popup_cards')
 const popupclosebutton = document.querySelector('.popup__close-button_cards');
 //объявляем третий попап
 const popupFullScreen = document.querySelector('.popup_fullscreen');
-const popupFullScreenImg = document.querySelector('.popup__fullscreen-img');
-const popupFullScreenTitle = document.querySelector('.popup__fullscreen-title');
 const popupFullScreenClose = document.querySelector('.popup__fullscreen-close');
 //открытие попапа карточек
 profileAddbutton.addEventListener('click', () => {
@@ -60,47 +68,14 @@ profileAddbutton.addEventListener('click', () => {
 popupclosebutton.addEventListener('click', () => {
     togglePopupInVisibility(popupCards);
 });
-//добавление карточек на страницу
-// const template = document.querySelector('.template').content;
+
 const cards = document.querySelector('.cards');
-// function createCard(item) {
-//     const templateElement = template.cloneNode(true);
-//     const cardLogo = templateElement.querySelector('.card__logo');
-//     const cardTitle = templateElement.querySelector('.card__title');
-//     const deleteButton = templateElement.querySelector('.card__button-trash');
-//     const likeButton = templateElement.querySelector('.card__item');
-//     cardLogo.src = item.link;
-//     cardTitle.textContent = item.name;
-//     cardLogo.alt = item.name;
-//     //удаление карточки
-//     function deleteCard() {
-//         const removeElement = deleteButton.closest('.card');
-//         removeElement.remove();
-//     }
-//     deleteButton.addEventListener('click', deleteCard);
-//     // функция лайка
-//     function makeLike() {
-//         likeButton.classList.toggle('card__item_active');
-//     }
-//     likeButton.addEventListener('click', makeLike);
-//     //открыть попап с картинкой
-//     function openFullScreen() {
-//         popupFullScreenImg.src = cardLogo.src;
-//         popupFullScreenImg.alt = cardTitle.textContent;
-//         popupFullScreenTitle.textContent = cardTitle.textContent;
-//         togglePopupVisibility(popupFullScreen);
-//     }
-//     cardLogo.addEventListener('click', openFullScreen);
-//     return templateElement;
-// }
+
 //закрыть попап большой картинки
 popupFullScreenClose.addEventListener('click', () => {
     togglePopupInVisibility(popupFullScreen);
 });
-// initialCards.forEach(function (item) {
-//     const card = createCard(item);
-//     cards.prepend(card);
-// });
+
 // добавить свою карточку
 const cardInputtext = document.querySelector('.popup__input_type_title');
 const cardInputimg = document.querySelector('.popup__input_type_link');
@@ -111,8 +86,10 @@ function addNewCard(event) {
         name: cardInputtext.value,
         link: cardInputimg.value
     };
-    cards.prepend(createCard(cardData));
+    const newCard = new Card(cardData.name, cardData.link);
+    const cardElement = newCard.generateCard();
     disabledSubmitButton(popupCards);
+    cards.prepend(cardElement);
     popupFormCards.reset();
     togglePopupInVisibility(popupCards);
 }
@@ -132,55 +109,14 @@ function closeByEsc(evt) {
         togglePopupInVisibility(document.querySelector('.popup_opened'));
     }
 };
-class Card {
-    constructor(name, link) {
-        this.name = name;
-        this.link = link;
-    }
-    _getTemplate() {
-        const cardElement = document
-            .querySelector('.template')
-            .content
-            .querySelector('.card')
-            .cloneNode(true);
-        return cardElement;
-    }
-    generateCard() {
-        this._element = this._getTemplate();
-        this._elementImg = this._element.querySelector('.card__logo');
-        this._elementImg.src = this.link;
-        this._elementImg.alt = this.name;
-        this._element.querySelector('.card__title').textContent = this.name;
-        this._deleteButton = this._element.querySelector('.card__button-trash');
-        this._likeButton = this._element.querySelector('.card__item');
-        this._setEventListener();
-        return this._element;
-
-    }
-    _setEventListener() {
-        this._likeButton.addEventListener('click', this._makeLike);
-        this._deleteButton.addEventListener('click', this._deleteCard);
-        this._elementImg.addEventListener('click', this._openFullScreen);
-    }
-    _makeLike = () => {
-        this._likeButton.classList.toggle('card__item_active');
-    }
-    _deleteCard = () => {
-        this._removeCard = this._element;
-        this._removeCard.remove();
-    }
-    _openFullScreen = () => {
-        popupFullScreenImg.src = this.link;
-        popupFullScreenImg.alt = this.name;
-        popupFullScreenTitle.textContent = this.name;
-        togglePopupVisibility(popupFullScreen);
-    }
-}
-
-
 
 initialCards.forEach((item) => {
     const newCard = new Card(item.name, item.link);
     const cardElement = newCard.generateCard();
     cards.append(cardElement);
 });
+const profileValidation = new FormValidator(popupElement);
+profileValidation.enableValidation();
+const cardValidation = new FormValidator(popupCards);
+cardValidation.enableValidation();
+
