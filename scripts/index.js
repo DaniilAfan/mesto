@@ -84,7 +84,7 @@ function addNewCard(event) {
         name: cardInputtext.value,
         link: cardInputimg.value
     };
-    const newCard = new Card(cardData.name, cardData.link);
+    const newCard = new Card(cardData, '.template');
     const cardElement = newCard.generateCard();
     disabledSubmitButton(popupCards);
     cards.prepend(cardElement);
@@ -109,7 +109,7 @@ function closeByEsc(evt) {
 };
 
 initialCards.forEach((item) => {
-    const newCard = new Card(item.name, item.link);
+    const newCard = new Card(item, '.template');
     const cardElement = newCard.generateCard();
     cards.append(cardElement);
 });

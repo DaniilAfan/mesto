@@ -1,15 +1,15 @@
 import { togglePopupVisibility } from "./index.js";
 class Card {
-    constructor(name, link) {
-        this.name = name;
-        this.link = link;
+    constructor(data, templateSelector) {
+        this._data = data;
+        this._templateSelector = templateSelector;
         this._popupFullScreen = document.querySelector('.popup_fullscreen');
-        this._popupFullScreenImg = document.querySelector('.popup__fullscreen-img');
-        this._popupFullScreenTitle = document.querySelector('.popup__fullscreen-title');
+        this._popupFullScreenImg = this._popupFullScreen.querySelector('.popup__fullscreen-img');
+        this._popupFullScreenTitle = this._popupFullScreen.querySelector('.popup__fullscreen-title');
     }
     _getTemplate() {
         const cardElement = document
-            .querySelector('.template')
+            .querySelector(this._templateSelector)
             .content
             .querySelector('.card')
             .cloneNode(true);
@@ -18,9 +18,9 @@ class Card {
     generateCard() {
         this._element = this._getTemplate();
         this._elementImg = this._element.querySelector('.card__logo');
-        this._elementImg.src = this.link;
-        this._elementImg.alt = this.name;
-        this._element.querySelector('.card__title').textContent = this.name;
+        this._elementImg.src = this._data.link;
+        this._elementImg.alt = this._data.name;
+        this._element.querySelector('.card__title').textContent = this._data.name;
         this._deleteButton = this._element.querySelector('.card__button-trash');
         this._likeButton = this._element.querySelector('.card__item');
         this._setEventListener();
@@ -40,10 +40,9 @@ class Card {
         this._removeCard.remove();
     }
     _openFullScreen = () => {
-
-        this._popupFullScreenImg.src = this.link;
-        this._popupFullScreenImg.alt = this.name;
-        this._popupFullScreenTitle.textContent = this.name;
+        this._popupFullScreenImg.src = this._data.link;
+        this._popupFullScreenImg.alt = this._data.name;
+        this._popupFullScreenTitle.textContent = this._data.name;
         togglePopupVisibility(this._popupFullScreen);
     }
 }
