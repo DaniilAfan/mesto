@@ -80,9 +80,8 @@ function addNewCard(event) {
         name: cardInputtext.value,
         link: cardInputimg.value
     };
-    const newCard = new Card(cardData, '.template');
-    const cardElement = newCard.generateCard();
-    cards.prepend(cardElement);
+    const newCard = createCard(cardData);
+    cards.prepend(newCard);
     popupFormCards.reset();
     closePopup(popupCards);
 }
@@ -102,10 +101,12 @@ function closeByEsc(evt) {
         closePopup(document.querySelector('.popup_opened'));
     }
 };
-
+function createCard(data) {
+    const newCard = new Card(data, '.template');
+    return newCard.generateCard();
+};
 initialCards.forEach((item) => {
-    const newCard = new Card(item, '.template');
-    const cardElement = newCard.generateCard();
+    const cardElement = createCard(item);
     cards.append(cardElement);
 });
 const profileValidation = new FormValidator(configFormSelector, popupProfile);
