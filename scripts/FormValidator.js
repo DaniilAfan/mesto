@@ -37,6 +37,11 @@ class FormValidator {
     }
     _setEventListener() {
         this._toggleButtonstate();
+        this._form.addEventListener('reset', () => {
+            setTimeout(() => {
+                this._toggleButtonstate();
+            }, 0);
+        });
         this._form.addEventListener('submit', (e) => {
             e.preventDefault();
         })
