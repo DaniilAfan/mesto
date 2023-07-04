@@ -1,4 +1,4 @@
-import { openPopup } from "./index.js";
+// import { openPopup } from "../index.js";
 class Card {
     constructor(data, templateSelector) {
         this._data = data;
@@ -39,11 +39,11 @@ class Card {
         this._removeCard = this._element;
         this._removeCard.remove();
     }
-    _openFullScreen = () => {
-        this._popupFullScreenImg.src = this._data.link;
-        this._popupFullScreenImg.alt = this._data.name;
-        this._popupFullScreenTitle.textContent = this._data.name;
-        openPopup(this._popupFullScreen);
-    }
+    // _openFullScreen = () => {
+    //     this._popupFullScreenImg.src = this._data.link;
+    //     this._popupFullScreenImg.alt = this._data.name;
+    //     this._popupFullScreenTitle.textContent = this._data.name;
+    //     openPopup(this._popupFullScreen);
+    // }
 }
 export default Card;
