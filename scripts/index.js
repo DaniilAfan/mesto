@@ -1,7 +1,10 @@
 //импорты классов
 import Card from "./components/Card.js";
 import FormValidator from "./components/FormValidator.js";
-import Popup from "./components/Popup.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import UserInfo from "./components/UserInfo.js";
+import Section from "./components/Section.js";
 //импорты констант
 import { initialCards } from "./utils/constants.js";
 import { configFormSelector } from "./utils/constants.js";
@@ -24,19 +27,52 @@ import {
     popupFullScreenClose,
     cards
 } from "./utils/constants.js";
-
-
-
-
-
-const popupProfileElement = new Popup(popupProfile);
-popupProfileElement.setEventListener();
-
+//создаем экземпляр для класа юзер
+const userInfo = new UserInfo({ name: profilename, description: profilejob });
+//создаем экземпялр попапа профиля и навешиваем слушатели
+const popupProfileForm = new PopupWithForm(popupProfile, {
+    submitSelector: (input) => {
+        const data = {
+            name: input['input-name'],
+            description: input['input-job']
+        }
+        userInfo.setUserInfo(data);
+    }
+})
+popupProfileForm.setEventListener();
 profileElement.addEventListener('click', () => {
-    nameInput.value = profilename.textContent;
-    jobInput.value = profilejob.textContent;
-    popupProfileElement.openPopup();
+    popupProfileForm.open();
+    const input = userInfo.getUserInfo();
+    nameInput.value = input.name;
+    jobInput.value = input.description;
 });
+//создаем экземпляр попапа карточек
+const popupCardForm = new PopupWithForm(popupCards, {
+    submitSelector: (input) => {
+        const data = {
+            name: input['input-text'],
+            description: input['input-link']
+        }
+    }
+});
+popupCardForm.setEventListener();
+profileAddbutton.addEventListener('click', () => {
+    popupCardForm.open();
+});
+const section = new Section({
+    initialCards,
+
+
+
+}, cards);
+// const popupProfileElement = new Popup(popupProfile);
+// popupProfileElement.setEventListener();
+
+// profileElement.addEventListener('click', () => {
+//     nameInput.value = profilename.textContent;
+//     jobInput.value = profilejob.textContent;
+//     popupProfileElement.open();
+// });
 // popupCloseProfile.addEventListener('click', () => {
 //     closePopup(popupProfile);
 // });
@@ -68,31 +104,31 @@ profileElement.addEventListener('click', () => {
 // // });
 
 // // добавить свою карточку
-function addNewCard(event) {
-    event.preventDefault();
-    const cardData = {
-        name: cardInputtext.value,
-        link: cardInputimg.value
-    };
-    const newCard = createCard(cardData);
-    cards.prepend(newCard);
-    popupFormCards.reset();
-    closePopup(popupCards);
-}
-// popupFormCards.addEventListener('submit', addNewCard);
+// function addNewCard(event) {
+//     event.preventDefault();
+//     const cardData = {
+//         name: cardInputtext.value,
+//         link: cardInputimg.value
+//     };
+//     const newCard = createCard(cardData);
+//     cards.prepend(newCard);
+//     popupFormCards.reset();
+//     closePopup(popupCards);
+// }
+// // popupFormCards.addEventListener('submit', addNewCard);
 
 
 
 
 
-function createCard(data) {
-    const newCard = new Card(data, '.template');
-    return newCard.generateCard();
-};
-initialCards.forEach((item) => {
-    const cardElement = createCard(item);
-    cards.append(cardElement);
-});
+// function createCard(data) {
+//     const newCard = new Card(data, '.template');
+//     return newCard.generateCard();
+// };
+// initialCards.forEach((item) => {
+//     const cardElement = createCard(item);
+//     cards.append(cardElement);
+// });
 const profileValidation = new FormValidator(configFormSelector, popupProfile);
 profileValidation.enableValidation();
 const cardValidation = new FormValidator(configFormSelector, popupCards);
