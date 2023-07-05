@@ -68,31 +68,31 @@ profileElement.addEventListener('click', () => {
 // // });
 
 // // добавить свою карточку
-// function addNewCard(event) {
-//     event.preventDefault();
-//     const cardData = {
-//         name: cardInputtext.value,
-//         link: cardInputimg.value
-//     };
-//     const newCard = createCard(cardData);
-//     cards.prepend(newCard);
-//     popupFormCards.reset();
-//     closePopup(popupCards);
-// }
+function addNewCard(event) {
+    event.preventDefault();
+    const cardData = {
+        name: cardInputtext.value,
+        link: cardInputimg.value
+    };
+    const newCard = createCard(cardData);
+    cards.prepend(newCard);
+    popupFormCards.reset();
+    closePopup(popupCards);
+}
 // popupFormCards.addEventListener('submit', addNewCard);
 
 
 
 
 
-// function createCard(data) {
-//     const newCard = new Card(data, '.template');
-//     return newCard.generateCard();
-// };
-// initialCards.forEach((item) => {
-//     const cardElement = createCard(item);
-//     cards.append(cardElement);
-// });
+function createCard(data) {
+    const newCard = new Card(data, '.template');
+    return newCard.generateCard();
+};
+initialCards.forEach((item) => {
+    const cardElement = createCard(item);
+    cards.append(cardElement);
+});
 const profileValidation = new FormValidator(configFormSelector, popupProfile);
 profileValidation.enableValidation();
 const cardValidation = new FormValidator(configFormSelector, popupCards);
