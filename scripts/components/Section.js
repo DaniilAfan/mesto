@@ -4,9 +4,9 @@ class Section {
         this._renderer = renderer;
         this._containerSelector = containerSelector;
     }
-    _renderItems() {
+    renderItems() {
         this._renderedItems.forEach((item) => {
-            renderer(item);
+            this._renderer(item);
         });
     }
     addItem(element) {

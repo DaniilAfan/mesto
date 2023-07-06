@@ -8,6 +8,7 @@ class PopupWithImage extends Popup {
         this._alt = this._popupElement.querySelector('.popup__fullscreen-img');
     }
     open(name, link, alt) {
+        super.open();
         this._title.textContent = name;
         this._image.src = link;
         this._alt.alt = alt;
