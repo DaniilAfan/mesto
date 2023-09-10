@@ -1,14 +1,14 @@
 //импорты классов
 import './index.css';
-import Card from "../scripts/components/Card.js";
-import FormValidator from "../scripts/components/FormValidator.js";
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import UserInfo from "../scripts/components/UserInfo.js";
-import Section from "../scripts/components/Section.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
 //импорты констант
-import { initialCards } from "../scripts/utils/constants.js";
-import { configFormSelector } from "../scripts/utils/constants.js";
+import { initialCards } from "../utils/constants.js";
+import { configFormSelector } from "../utils/constants.js";
 import {
     popupProfile,
     profileElement,
@@ -20,7 +20,7 @@ import {
     popupCards,
     popupFullScreen,
     cards
-} from "../scripts/utils/constants.js";
+} from "../utils/constants.js";
 //создаем экземпляр большой картинки
 const fullScreenImg = new PopupWithImage(popupFullScreen);
 fullScreenImg.setEventListener();
@@ -29,12 +29,8 @@ fullScreenImg.setEventListener();
 const userInfo = new UserInfo({ name: profilename, description: profilejob });
 //создаем экземпялр попапа профиля и навешиваем слушатели
 const popupProfileForm = new PopupWithForm(popupProfile, {
-    submitSelector: (input) => {
-        const data = {
-            name: input['input-name'],
-            description: input['input-job']
-        }
-        userInfo.setUserInfo(data);
+    handleFormSubmit: (input) => {
+        userInfo.setUserInfo(input);
     }
 })
 popupProfileForm.setEventListener();
@@ -46,12 +42,8 @@ profileElement.addEventListener('click', () => {
 });
 //создаем экземпляр попапа карточек
 const popupCardForm = new PopupWithForm(popupCards, {
-    submitSelector: (input) => {
-        const data = {
-            name: input['input-text'],
-            link: input['input-link']
-        }
-        section.newItem(createCard(data));
+    handleFormSubmit: (input) => {
+        section.newItem(createCard(input));
     }
 });
 popupCardForm.setEventListener();
