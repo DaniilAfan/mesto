@@ -53,3 +53,5 @@ export const popupFullScreen = document.querySelector('.popup_fullscreen');
 export const popupFullScreenClose = document.querySelector('.popup__fullscreen-close');
 //секция для хранения карточек
 export const cards = document.querySelector('.cards');
+//9 ый спринт перемнные
+export const popupDelete = document.querySelector('.popup_delete-confirm');

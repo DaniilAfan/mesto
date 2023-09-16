@@ -15,7 +15,9 @@
     <main class="content">
         <section class="profile">
             <div class="profile__items">
-                <img src="<%=require('./images/profile__photo.jpg')%>" alt="фото профиля" class="profile__photo">
+                <button class="profile__edit-avatar">
+                    <img src="<%=require('./images/profile__photo.jpg')%>" alt="фото профиля" class="profile__photo">
+                </button>
                 <div class="profile__info">
                     <h1 class="profile__title">FunnyAnimals</h1>
                     <button type="button" class="profile__popup"></button>
@@ -68,13 +70,36 @@
             <button class="popup__close-button popup__fullscreen-close"></button>
         </div>
     </section>
+    <section class="popup popup_delete-confirm">
+        <div class="popup__container popup__container_type_confirm">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <form class="popup__form">
+                <button type="submit" class="popup__save-button popup__save-button_type_confirm">Да</button>
+            </form>
+            <button type="button" class="popup__close-button popup__close-button_confirm"></button>
+        </div>
+    </section>
+    <section class="popup popup_avatar">
+        <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form">
+                <input type="url" name="avatar" class="popup__input popup__input_type_avatar">
+                <span class="popup__input-error" id="avatar-error"></span>
+                <button type="submit" class="popup__save-button">Сохранить</button>
+            </form>
+            <button type="button" class="popup__close-button popup__close-button_avatar"></button>
+        </div>
+    </section>
     <template class="template">
         <div class="card">
             <img class="card__logo">
             <button class="card__button-trash"></button>
             <div class="card__interface">
                 <h2 class="card__title"></h2>
-                <button type="button" class="card__item"></button>
+                <div class="card__like-info">
+                    <button type="button" class="card__item"></button>
+                    <p class="card__like-number">0</p>
+                </div>
             </div>
         </div>
     </template>
