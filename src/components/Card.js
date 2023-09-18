@@ -41,7 +41,7 @@ class Card {
     }
     _checkhLikedState() {
         this._data.likes.forEach((like) => {
-            if (like._id === this._userID) {
+            if (like._id === this._userId) {
                 this._likeButton.classList.add('card__item_active');
             }
         });
