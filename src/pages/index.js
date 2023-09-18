@@ -107,7 +107,7 @@ const section = new Section({
     },
 }, cards);
 //создаем экземпляр для класа юзер
-const userInfo = new UserInfo({ name: profilename, description: profilejob, avatar: profileAva });
+const userInfo = new UserInfo({ Selectorname: profilename, Selectordescription: profilejob, Selectoravatar: profileAva });
 //создаем экземпялр попапа профиля и навешиваем слушатели
 const popupProfileForm = new PopupWithForm(popupProfile, {
     handleFormSubmit: (data) => {
@@ -130,7 +130,7 @@ profileElement.addEventListener('click', () => {
     popupProfileForm.open();
     const input = userInfo.getUserInfo();
     nameInput.value = input.name;
-    jobInput.value = input.description;
+    jobInput.value = input.about;
 });
 //попап редактирования аватарки
 const popupAvatar = new PopupWithForm(popupWithAvatar, {
@@ -157,7 +157,8 @@ editAvatarButton.addEventListener('click', () => {
 const popupCardForm = new PopupWithForm(popupCards, {
     handleFormSubmit: (data) => {
         loading(popupCards, 'Сохранение...');
-        api.addNewPhotocard(data.nameImg, data.linkImg)
+        console.log(data);
+        api.addNewPhotocard(data.title, data.link)
             .then((res) => {
                 section.newItem(createCard(res));
                 popupCardForm.close();
@@ -179,4 +180,6 @@ const profileValidation = new FormValidator(configFormSelector, popupProfile);
 profileValidation.enableValidation();
 const cardValidation = new FormValidator(configFormSelector, popupCards);
 cardValidation.enableValidation();
+const avatarValidation = new FormValidator(configFormSelector, popupWithAvatar);
+avatarValidation.enableValidation();
 
