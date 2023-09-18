@@ -31,16 +31,15 @@ class Card {
         this._likeButton = this._element.querySelector('.card__item');
         this._likeNumber = this._element.querySelector('.card__like-number');
         this._likeNumber.textContent = this._likes.length;
-
         if (this._ownerId !== this._userId) {
             this._deleteButton.remove();
         }
-        this._chechLikedState();
+        this._checkhLikedState();
         this._setEventListener();
 
         return this._element;
     }
-    _chechLikedState() {
+    _checkhLikedState() {
         this._data.likes.forEach((like) => {
             if (like._id === this._userID) {
                 this._likeButton.classList.add('card__item_active');

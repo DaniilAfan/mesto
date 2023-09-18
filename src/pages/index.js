@@ -7,9 +7,8 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import Section from "../components/Section.js";
 import Api from '../components/Api.js';
-import popupConfirm from '../components/PopupConfirm.js'
+
 //импорты констант
-import { initialCards } from "../utils/constants.js";
 import { configFormSelector } from "../utils/constants.js";
 import loading from '../utils/constants.js';
 import {
@@ -44,7 +43,7 @@ Promise.all([api.getUserInfo(), api.getInitialsCards()])
     .then(([data, cards]) => {
         userId = data._id;
         userInfo.setUserInfo(data);
-        section.renderItems(cards);
+        cardsContainer.renderItems(cards);
     })
     .catch((err) => {
         console.log(err);
@@ -56,6 +55,7 @@ fullScreenImg.setEventListener();
 const popupWithConfirm = new PopupConfirm(popupDelete);
 popupWithConfirm.setEventListener();
 //создаем функцию создания карт  через класс Card
+
 function createCard(data) {
     const card = new Card({
         data,
@@ -101,9 +101,9 @@ function createCard(data) {
     return card.generateCard();
 }
 //загружаем карточки
-const section = new Section({
+const cardsContainer = new Section({
     renderer: (item) => {
-        section.addItem(createCard(item))
+        cardsContainer.addItem(createCard(item))
     },
 }, cards);
 //создаем экземпляр для класа юзер
@@ -157,10 +157,9 @@ editAvatarButton.addEventListener('click', () => {
 const popupCardForm = new PopupWithForm(popupCards, {
     handleFormSubmit: (data) => {
         loading(popupCards, 'Сохранение...');
-        console.log(data);
         api.addNewPhotocard(data.title, data.link)
             .then((res) => {
-                section.newItem(createCard(res));
+                cardsContainer.newItem(createCard(res));
                 popupCardForm.close();
             })
             .catch((err) => {
