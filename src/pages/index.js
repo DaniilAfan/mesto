@@ -11,6 +11,7 @@ import popupConfirm from '../components/PopupConfirm.js'
 //импорты констант
 import { initialCards } from "../utils/constants.js";
 import { configFormSelector } from "../utils/constants.js";
+import loading from '../utils/constants.js';
 import {
     popupProfile,
     profileElement,
@@ -22,7 +23,10 @@ import {
     popupCards,
     popupFullScreen,
     cards,
-    popupDelete
+    popupDelete,
+    profileAva,
+    popupWithAvatar,
+    editAvatarButton
 } from "../utils/constants.js";
 import PopupConfirm from '../components/PopupConfirm.js';
 
@@ -52,22 +56,73 @@ fullScreenImg.setEventListener();
 const popupWithConfirm = new PopupConfirm(popupDelete);
 popupWithConfirm.setEventListener();
 //создаем функцию создания карт  через класс Card
-function createCard(item) {
+function createCard(data) {
     const card = new Card({
-        data: item,
+        data,
         handleCardClick: (name, link) => {
             fullScreenImg.open(name, link);
+        },
+        handleDeleteClick: () => {
+            popupWithConfirm.open();
+            popupWithConfirm.submitCallback(() => {
+                loading(popupDelete, 'Удаление...');
+                api.deleteCard(card.getId())
+                    .then(() => {
+                        card.deleteCard();
+                        popupWithConfirm.close();
+                    })
+                    .catch((err) => {
+                        console.log(`deleteCard - ошибка: ${err}`);
+                    })
+                    .finally(() => {
+                        loading(popupDelete, 'Да');
+                    })
+            })
+        },
+        handleSetLike: (cardId) => {
+            api.setLike(cardId)
+                .then((data) => {
+                    card.makeLike(data);
+                })
+                .catch((err) => {
+                    console.log(`makeLike - ошибка: ${err}`);
+                })
+        },
+        handleDeleteLike: (cardId) => {
+            api.deleteLike(cardId)
+                .then((data) => {
+                    card.makeLike(data);
+                })
+                .catch((err) => {
+                    console.log(`handleDeleteLike - ошибка: ${err}`);
+                })
         }
-    }, '.template');
-    const cardElement = card.generateCard();
-    return cardElement;
+    }, '.template', userId);
+    return card.generateCard();
 }
+//загружаем карточки
+const section = new Section({
+    renderer: (item) => {
+        section.addItem(createCard(item))
+    },
+}, cards);
 //создаем экземпляр для класа юзер
-const userInfo = new UserInfo({ name: profilename, description: profilejob });
+const userInfo = new UserInfo({ name: profilename, description: profilejob, avatar: profileAva });
 //создаем экземпялр попапа профиля и навешиваем слушатели
 const popupProfileForm = new PopupWithForm(popupProfile, {
-    handleFormSubmit: (input) => {
-        userInfo.setUserInfo(input);
+    handleFormSubmit: (data) => {
+        loading(popupProfile, 'Сохранение...');
+        api.setUserData(data)
+            .then((res) => {
+                userInfo.setUserInfo(res);
+                popupProfileForm.close();
+            })
+            .catch((err) => {
+                console.log(`getUserInfo - ошибка: ${err}`);
+            })
+            .finally(() => {
+                loading(popupProfile, 'Сохранить');
+            })
     }
 })
 popupProfileForm.setEventListener();
@@ -77,24 +132,48 @@ profileElement.addEventListener('click', () => {
     nameInput.value = input.name;
     jobInput.value = input.description;
 });
+//попап редактирования аватарки
+const popupAvatar = new PopupWithForm(popupWithAvatar, {
+    handleFormSubmit: (data) => {
+        loading(popupWithAvatar, 'Сохранение...');
+        api.setAvatar(data)
+            .then((res) => {
+                userInfo.setUserInfo(res);
+                popupAvatar.close();
+            })
+            .catch((err) => {
+                console.log(`setAvatar - ошибка: ${err}`);
+            })
+            .finally(() => {
+                loading(popupWithAvatar, 'Сохранить');
+            })
+    }
+})
+popupAvatar.setEventListener();
+editAvatarButton.addEventListener('click', () => {
+    popupAvatar.open();
+})
 //создаем экземпляр попапа карточек
 const popupCardForm = new PopupWithForm(popupCards, {
-    handleFormSubmit: (input) => {
-
-        section.newItem(createCard(input));
+    handleFormSubmit: (data) => {
+        loading(popupCards, 'Сохранение...');
+        api.addNewPhotocard(data.nameImg, data.linkImg)
+            .then((res) => {
+                section.newItem(createCard(res));
+                popupCardForm.close();
+            })
+            .catch((err) => {
+                console.log(`NewCard - ошибка: ${err}`);
+            })
+            .finally(() => {
+                loading(popupCards, 'Сохранить');
+            })
     }
 });
 popupCardForm.setEventListener();
 profileAddbutton.addEventListener('click', () => {
     popupCardForm.open();
 });
-const section = new Section({
-    items: initialCards,
-    renderer: (item) => {
-        section.addItem(createCard(item))
-    },
-}, cards);
-section.renderItems();
 
 const profileValidation = new FormValidator(configFormSelector, popupProfile);
 profileValidation.enableValidation();

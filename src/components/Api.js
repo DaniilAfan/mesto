@@ -4,10 +4,10 @@ export default class Api {
         this._headers = options.headers;
     }
     _checkingResponse(res) {
-        if (res.ok) {
-            return res.json();
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
         }
-        return Promise.reject(`Ошибка: ${res.status}`);
+        return res.json();
     }
     getInitialsCards() {
         return fetch(`${this._url}/cards`, {
